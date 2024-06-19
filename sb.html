@@ -1,16 +1,32 @@
+<!DOCTYPE html>
 <html>
-<head>
-<script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://sandbox.tinypass.com/xbuilder/experience/load?aid=86tsT7EUsu");</script>
+  <head>
+	  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+    <script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://sandbox.tinypass.com/xbuilder/experience/load?aid=86tsT7EUsu");</script>
+ 
+	</head>
+  <body>
+    <h1>Sandbox test page</h1>
+    <div>
+      <button onclick="">Login screen</button>
+      <button onclick="tp.pianoId.show({screen: 'register',});">Register screen</button>
+    </div>
+    <div>
+      <button onclick="tp.pianoId.logout()">Logout</button>
+      <button onclick="tp.myaccount.show({displayMode: 'inline', containerSelector: '#test'});">Show My Account</button>
+    </div>
+		<h2>Embed experience templates in the elemenet below this paragraph. Page segment tag=test. SELECTOR FOR INLINE CONTAINER: #test </h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales tempor ligula, sit amet blandit eros tincidunt vulputate. Curabitur congue ut ligula sed fermentum. Sed eu magna rutrum, mattis diam quis, rutrum felis. Nam porta, lectus eu euismod laoreet, justo purus ornare tortor, mattis malesuada nisl odio nec lectus. Suspendisse ut vestibulum neque. Etiam luctus gravida dui, eu lobortis urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+		<hr/>
+<div id="test">Page segment tag=test. SELECTOR FOR INLINE CONTAINER: #test </div>
+<hr/>
+	<script type="text/javascript">
+	 
 
-</head>
-<body>
-<script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://sandbox.tinypass.com/xbuilder/experience/load?aid=86tsT7EUsu");</script>
-
-
-<h1>Sandbox test page</h1>
-
-
-</body>
-
-
+tp = window["tp"] || [];
+	tp.push(['setTags', ['test']]);
+	</script>	
+  </body>
 </html>
