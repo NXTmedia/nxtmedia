@@ -8,11 +8,36 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <title>Sandbox test page</title>
 	  <script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://sandbox.tinypass.com/xbuilder/experience/load?aid=pPiIHlLvHl");</script>
+	    <script>
+        // Function to get query parameters as an object
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
+            }
+
+            return params;
+        }
+
+        // Use the parameters once the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const queryParams = getQueryParams();
+
+            if (queryParams.aid) {
+                sbaid = queryParams.aid;
+            } 
+		
+           
+        });
+    </script>
   </head>
   <body>
     <h1>Sandbox test page</h1>
     <div>
-      <button onclick="">Login screen</button>
+      <button onclick="tp.pianoId.show({screen: 'login',});">Login screen</button>
       <button onclick="tp.pianoId.show({screen: 'register',});">Register screen</button>
     </div>
 	<div>
@@ -27,8 +52,9 @@
 	  
 	<script type="text/javascript">
 		tp = window["tp"] || [];
+		tp.push(["setAid", sbaid]);
 		tp.push(['setTags', ['test']]);
-		tp.push(["setLocale","fr_FR"]);
+		
 	</script>
   </body>	
 </html>
