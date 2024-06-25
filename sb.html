@@ -87,10 +87,32 @@
     </div>
     <hr />
 
+    <div style="padding: 16px;">
+      <button onclick="showAppParams();">
+        Sebug parameters
+      </button>
+      <hr/>
+      <p id="aid"></p>
+      <p id="loggedIn"></p>
+      <p id="userName"></p>
+</div>
     <script type="text/javascript">
       tp = window["tp"] || [];
 
       tp.push(["setTags", ["test"]]);
+
+function showAppParams(){
+  document.getElementById("aid").innerHTML = tp.aid();
+
+
+
+
+}
+
+
+
+
+
     </script>
   </body>
 </html>
