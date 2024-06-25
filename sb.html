@@ -65,8 +65,8 @@
       </button>
     </div>
     <code>
-      Embed experience templates in the elemenet below this paragraph. Page
-      segment tag: test. Selector for inline container: #test
+      Embed experience templates in the elemenet below this paragraph.
+      Page segment tag: test. Selector for inline container: #test
     </code>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales
@@ -87,14 +87,15 @@
     <hr />
 
     <div style="padding: 16px;">
-      <button onclick="showAppParams();">Debug parameters</button> <button onclick="tp.experience.execute();">Run Composer</button>
+      <button onclick="showAppParams();">Debug parameters</button>
+      <button onclick="tp.experience.execute();">Run Composer</button>
       <hr />
       <div style="display: none;" id="params">
-      <div id="aid"></div>
-      <div>Logged in: <span id="loggedIn">false</span></div>
-      <div>User name: <span id="userName">n/a</span></div>
-      <div>Language: <span id="language">n/a</span></div>
-    </div>
+        <div id="aid"></div>
+        <div>Logged in: <span id="loggedIn">false</span></div>
+        <div>User name: <span id="userName">n/a</span></div>
+        <div>Language: <span id="language">n/a</span></div>
+      </div>
     </div>
     <script type="text/javascript">
       tp = window["tp"] || [];
@@ -102,7 +103,7 @@
       tp.push(["setTags", ["test"]]);
 
       function showAppParams() {
-        document.getElementById("params").style.display="inline";
+        document.getElementById("params").style.display = "inline";
         document.getElementById("aid").innerHTML = tp.aid;
         document.getElementById("loggedIn").innerHTML =
           tp.pianoId.isUserValid();
