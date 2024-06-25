@@ -103,12 +103,13 @@ Page segment tag: test. Selector for inline container: #test</pre>
       function showAppParams() {
         document.getElementById("params").style.display = "inline";
         document.getElementById("aid").innerHTML = tp.aid;
-        document.getElementById("loggedIn").innerHTML =
+        if (tp.pianoId.isUserValid()){
+		document.getElementById("loggedIn").innerHTML =
           tp.pianoId.isUserValid();
         document.getElementById("userName").innerHTML =
           tp.pianoId.getUser().email;
         document.getElementById("language").innerHTML = tp.pianoId.getLang();
-      }
+      }}
 
 	  tp.push(['addHandler', 'logout', function(){
 		location.reload();
