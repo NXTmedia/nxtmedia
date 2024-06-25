@@ -79,7 +79,6 @@
       taciti sociosqu ad litora torquent per conubia nostra, per inceptos
       himenaeos.
     </p>
-   
 
     <hr />
     <div id="test">
@@ -88,32 +87,26 @@
     <hr />
 
     <div style="padding: 16px;">
-      <button onclick="showAppParams();">
-        Debug parameters
-      </button>
-      <hr/>
+      <button onclick="showAppParams();">Debug parameters</button> <button onclick="tp.experience.execute();">Run Composer</button>;
+      <hr />
       <p id="aid"></p>
-      <p id="loggedIn"></p>
-      <p id="userName"></p>
-</div>
+      <p>Logged in: <span id="loggedIn"></span></p>
+      <p>User name: <span id="userName"></span></p>
+      <p>Language: <span id="language"></span></p>
+    </div>
     <script type="text/javascript">
       tp = window["tp"] || [];
 
       tp.push(["setTags", ["test"]]);
 
-function showAppParams(){
-  document.getElementById("aid").innerHTML = tp.aid;
-  document.getElementById("loggedIn").innerHTML = tp.pianoId.isUserValid();
-
-
-
-
-}
-
-
-
-
-
+      function showAppParams() {
+        document.getElementById("aid").innerHTML = tp.aid;
+        document.getElementById("loggedIn").innerHTML =
+          tp.pianoId.isUserValid();
+        document.getElementById("userName").innerHTML =
+          tp.pianoId.getUser().email;
+        document.getElementById("language").innerHTML = tp.pianoId.getLang();
+      }
     </script>
   </body>
 </html>
