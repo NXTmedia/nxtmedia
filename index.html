@@ -1,32 +1,115 @@
 <!DOCTYPE html>
 <html>
   <head>
-	  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
-	  <meta charset="UTF-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>(function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("https://sandbox.tinypass.com/xbuilder/experience/load?aid=86tsT7EUsu");</script>
- 
-	</head>
+    <link rel="stylesheet" href="styles.css" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox test page</title>
+
+    <script>
+      // Function to get query parameters as an object
+      function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        for (const [key, value] of urlParams.entries()) {
+          params[key] = value;
+        }
+
+        return params;
+      }
+
+      // Use the parameters once the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const queryParams = getQueryParams();
+        sbaid = "86tsT7EUsu";
+        if (queryParams.aid) {
+          sbaid = queryParams.aid;
+        }
+
+        stem = "https://sandbox.tinypass.com/xbuilder/experience/load?aid=";
+        target = stem.concat(sbaid);
+
+        (function (src) {
+          var a = document.createElement("script");
+          a.type = "text/javascript";
+          a.async = true;
+          a.src = src;
+          var b = document.getElementsByTagName("script")[0];
+          b.parentNode.insertBefore(a, b);
+        })(target);
+      });
+    </script>
+  </head>
   <body>
     <h1>Sandbox test page</h1>
-    <div><button onclick="tp.pianoId.show({screen: 'login',});">Login screen</button> <button onclick="tp.pianoId.show({screen: 'register',});">Register screen</button></div>
-<div>
-		<button onclick="tp.pianoId.logout()">Logout</button>
-		<button onclick="tp.myaccount.show({displayMode: 'inline', containerSelector: '#test'});">Show My Account</button>
-	</div>
-	  
-		<h2>Embed experience templates in the elemenet below this paragraph. Page segment tag=test. SELECTOR FOR INLINE CONTAINER: #test </h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales tempor ligula, sit amet blandit eros tincidunt vulputate. Curabitur congue ut ligula sed fermentum. Sed eu magna rutrum, mattis diam quis, rutrum felis. Nam porta, lectus eu euismod laoreet, justo purus ornare tortor, mattis malesuada nisl odio nec lectus. Suspendisse ut vestibulum neque. Etiam luctus gravida dui, eu lobortis urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-		<hr/>
-<div id="test">Page segment tag=test. SELECTOR FOR INLINE CONTAINER: #test </div>
-<hr/>
-	<script type="text/javascript">
-	 
+    <div style="padding: 16px;">
+      <button onclick="tp.pianoId.show({screen: 'login',});">
+        Login screen
+      </button>
+      <button onclick="tp.pianoId.show({screen: 'register',});">
+        Register screen
+      </button>
+      <button onclick="tp.pianoId.logout()">Logout</button>
+      <button
+        onclick="tp.myaccount.show({displayMode: 'inline', containerSelector: '#test'});"
+      >
+        Show My Account
+      </button>
+    </div>
+    <pre>Embed experience templates in the element below this paragraph.
+Page segment tag: test. Selector for inline container: #test</pre>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales
+      tempor ligula, sit amet blandit eros tincidunt vulputate. Curabitur congue
+      ut ligula sed fermentum. Sed eu magna rutrum, mattis diam quis, rutrum
+      felis. Nam porta, lectus eu euismod laoreet, justo purus ornare tortor,
+      mattis malesuada nisl odio nec lectus. Suspendisse ut vestibulum neque.
+      Etiam luctus gravida dui, eu lobortis urna. Orci varius natoque penatibus
+      et magnis dis parturient montes, nascetur ridiculus mus. Class aptent
+      taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+      himenaeos.
+    </p>
 
-tp = window["tp"] || [];
-	tp.push(['setTags', ['test']]);
-	</script>	
+    
+    <div id="test">
+      Page segment tag: test. Selector for inline container: #test
+    </div>
+    <hr />
+
+    <div style="padding: 16px;">
+      <button onclick="showAppParams();">Debug parameters</button>
+      <button onclick="tp.experience.execute();">Run Composer</button>
+      <hr />
+      <div style="display: none;" id="params">
+        <div id="aid"></div>
+        <div>Logged in: <span id="loggedIn">false</span></div>
+        <div>User name: <span id="userName">n/a</span></div>
+        <div>Language: <span id="language">n/a</span></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      tp = window["tp"] || [];
+
+      tp.push(["setTags", ["test"]]);
+
+      function showAppParams() {
+        document.getElementById("params").style.display = "inline";
+        document.getElementById("aid").innerHTML = tp.aid;
+        document.getElementById("loggedIn").innerHTML =
+          tp.pianoId.isUserValid();
+        document.getElementById("userName").innerHTML =
+          tp.pianoId.getUser().email;
+        document.getElementById("language").innerHTML = tp.pianoId.getLang();
+      }
+    </script>
   </body>
 </html>
+
