@@ -3,8 +3,8 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #333;
     background-color: #f7f7f7;
-    margin: 0;
-    padding: 0;
+    margin: 16;
+    padding: 8;
     line-height: 1.6;
 }
 
