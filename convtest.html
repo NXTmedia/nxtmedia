@@ -67,6 +67,8 @@
 		tp.push(['setTags', ['test']]);
         var registrationTermId = 'TMHSA1V9LZUZ';
         tp.push(["addHandler", "registrationSuccess", function(data){
+          tp.log.logConversion(trackingId, termId, termName, stepNumber, amount, currency, customParams, conversion_category)
+
             // Create a conversion on registration term automatically
             tp.api.callApi("/conversion/registration/create", {term_id: registrationTermId}, function( conversionData ){
             // Refresh access token cookie manually
