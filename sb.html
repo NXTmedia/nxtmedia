@@ -102,7 +102,8 @@
       tp.push(["setTags", ["test"]]);
 
 function showAppParams(){
-  document.getElementById("aid").innerHTML = tp.aid();
+  document.getElementById("aid").innerHTML = tp.aid;
+  document.getElementById("loggedIn").innerHTML = tp.pianoId.isUserValid();
 
 
 
