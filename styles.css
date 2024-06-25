@@ -151,3 +151,17 @@ th {
 .hidden {
 	display: none !important;
 }
+
+pre {
+	background-color: #f4f4f4;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 15px;
+	overflow-x: auto;
+}
+
+code {
+	font-family: 'Courier New', Courier, monospace;
+	color: #c7254e;
+	background-color: #f9f2f4;
+}
