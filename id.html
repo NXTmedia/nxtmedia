@@ -60,6 +60,9 @@
         button:hover {
             background-color: #2980b9;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -80,11 +83,13 @@
             </label>
         </div>
         
+        <div id="containerSelectorWrapper">
+            <label for="containerSelector">Container Selector:</label>
+            <input type="text" id="containerSelector" name="containerSelector">
+        </div>
+        
         <label for="screen">Screen:</label>
         <input type="text" id="screen" name="screen">
-        
-        <label for="containerSelector">Container Selector:</label>
-        <input type="text" id="containerSelector" name="containerSelector">
         
         <label for="width">Width:</label>
         <input type="text" id="width" name="width">
@@ -95,28 +100,49 @@
         <label for="stage">Stage:</label>
         <input type="text" id="stage" name="stage">
         
+        <label for="templateId">Template ID:</label>
+        <input type="text" id="templateId" name="templateId">
+        
         <button type="button" onclick="triggerPianoId()">Submit</button>
     </form>
 
     <script>
+        function toggleContainerSelector() {
+            const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
+            const containerSelectorWrapper = document.getElementById('containerSelectorWrapper');
+            containerSelectorWrapper.classList.toggle('hidden', displayMode !== 'inline');
+        }
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[name="displayMode"]').forEach(radio => {
+            radio.addEventListener('change', toggleContainerSelector);
+        });
+
+        // Initial toggle on page load
+        toggleContainerSelector();
+
         function triggerPianoId() {
             const disableSignUp = document.getElementById('disableSignUp').checked;
             const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
             const screen = document.getElementById('screen').value;
-            const containerSelector = document.getElementById('containerSelector').value;
             const width = document.getElementById('width').value;
             const height = document.getElementById('height').value;
             const stage = document.getElementById('stage').value;
+            const templateId = document.getElementById('templateId').value;
 
             const params = {
                 disableSignUp,
                 displayMode,
                 screen,
-                containerSelector,
                 width,
                 height,
                 stage,
+                templateId,
             };
+
+            if (displayMode === 'inline') {
+                params.containerSelector = document.getElementById('containerSelector').value;
+            }
 
             tp.pianoId.show(params);
         }
