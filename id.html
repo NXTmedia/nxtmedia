@@ -3,53 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano ID showForm Function Tester</title>
-    <script src="https://cdn.tinypass.com/api/tinypass.min.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-        h1 { color: #333; }
-        form { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input { margin-bottom: 10px; width: 100%; padding: 5px; }
-        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
-        #result { margin-top: 20px; padding: 10px; background-color: #f0f0f0; }
-    </style>
+    <title>Piano ID Trigger Form</title>
 </head>
 <body>
-    <h1>Piano ID showForm Function Tester</h1>
+    <h1>Trigger Piano ID Function</h1>
+    <form id="pianoIdForm">
+       
 
-    <form id="pianoIdShowFormTest">
-        <h2>tp.pianoId.showForm()</h2>
-        <label>Form Name: <input type="text" name="formName" required></label>
-        <label>Template ID: <input type="text" name="templateId" required></label>
-        <label>Variant ID: <input type="text" name="variantId"></label>
-        <label>Hide If Complete: <input type="checkbox" name="hideIfComplete"></label>
-        <button type="submit">Show Form</button>
+        <label for="disableSignUp">Disable Sign Up:</label><br>
+        <input type="checkbox" id="disableSignUp" name="disableSignUp"><br><br>
+
+       
+        <label for="displayMode">Display Mode:</label><br>
+        <input type="text" id="displayMode" name="displayMode"><br><br>
+
+        <label for="screen">Screen:</label><br>
+        <input type="text" id="screen" name="screen"><br><br>
+
+        <label for="containerSelector">Container Selector:</label><br>
+        <input type="text" id="containerSelector" name="containerSelector"><br><br>
+
+        <label for="width">Width:</label><br>
+        <input type="text" id="width" name="width"><br><br>
+
+        <label for="height">Height:</label><br>
+        <input type="text" id="height" name="height"><br><br>
+
+        <button type="button" onclick="triggerPianoId()">Submit</button>
     </form>
 
-    <div id="result"></div>
-
     <script>
-        tp = window.tp || [];
-        tp.push(['setUsePianoIdUserProvider', true]);
+        function triggerPianoId() {
+           
+            const disableSignUp = document.getElementById('disableSignUp').checked;
+           
+            const displayMode = document.getElementById('displayMode').value;
+            const screen = document.getElementById('screen').value;
+            const containerSelector = document.getElementById('containerSelector').value;
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
 
-        document.getElementById('pianoIdShowFormTest').onsubmit = function(e) {
-            e.preventDefault();
-            const form = this;
-            const config = {
-                formName: form.formName.value,
-                templateId: form.templateId.value,
-                variantId: form.variantId.value || undefined,
-                hideIfComplete: form.hideIfComplete.checked
+            const params = {
+              
+                disableSignUp: disableSignUp,
+             
+                displayMode: displayMode,
+                screen: screen,
+                containerSelector: containerSelector,
+                width: width,
+                height: height
             };
 
-            // Remove undefined properties
-            Object.keys(config).forEach(key => config[key] === undefined && delete config[key]);
-
-            tp.pianoId.showForm(config);
-
-            document.getElementById('result').innerHTML = 'Showing form with config: ' + JSON.stringify(config, null, 2);
-        };
+            tp.pianoId.show(params);
+        }
     </script>
 </body>
 </html>
