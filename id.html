@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano ID Trigger Form</title>
+    <title>Piano ID Show Function</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,12 +66,9 @@
     </style>
 </head>
 <body>
-    <h1>Trigger Piano ID Function</h1>
+    <h1>Piano ID Show Function</h1>
     <form id="pianoIdForm">
-        <label for="disableSignUp">
-            <input type="checkbox" id="disableSignUp" name="disableSignUp">
-            Disable Sign Up
-        </label>
+       
         
         <div class="radio-group">
             <label>Display Mode:</label>
@@ -81,52 +78,77 @@
             <label>
                 <input type="radio" name="displayMode" value="modal"> Modal
             </label>
+            <label>
+                <input type="radio" name="displayMode" value="popup"> Popup
+            </label>
         </div>
         
         <div id="containerSelectorWrapper">
             <label for="containerSelector">Container Selector:</label>
-            <input type="text" id="containerSelector" name="containerSelector">
+            <input type="text" value="#pinaoIdForm" id="containerSelector" name="containerSelector">
         </div>
         
-        <label for="screen">Screen:</label>
-        <input type="text" id="screen" name="screen">
+        <div class="radio-group">
+            <label>Screen:</label>
+            <label>
+                <input type="radio" name="screen" value="login" checked> Login
+            </label>
+            <label>
+                <input type="radio" name="screen" value="register"> Register
+            </label>
+            <label>
+                <input type="radio" name="screen" value="restore"> Restore
+            </label>
+            <label>
+                <input type="radio" name="screen" value="new_password"> New Password
+            </label>
+        </div>
         
-        <label for="width">Width:</label>
-        <input type="text" id="width" name="width">
-        
-        <label for="height">Height:</label>
-        <input type="text" id="height" name="height">
+        <div id="dimensionsWrapper">
+            <label for="width">Width:</label>
+            <input type="text" id="width" name="width">
+            
+            <label for="height">Height:</label>
+            <input type="text" id="height" name="height">
+        </div>
         
         <label for="stage">Stage:</label>
         <input type="text" id="stage" name="stage">
         
         <label for="templateId">Template ID:</label>
         <input type="text" id="templateId" name="templateId">
+
+        <label for="disableSignUp">
+            <input type="checkbox" id="disableSignUp" name="disableSignUp">
+            Disable Sign Up
+        </label>
         
         <button type="button" onclick="triggerPianoId()">Submit</button>
     </form>
-
+<hr>
+<div id="pinaoIdForm"></div>
     <script>
-        function toggleContainerSelector() {
+        function toggleDisplayModeDependent() {
             const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
             const containerSelectorWrapper = document.getElementById('containerSelectorWrapper');
+            const dimensionsWrapper = document.getElementById('dimensionsWrapper');
+            
             containerSelectorWrapper.classList.toggle('hidden', displayMode !== 'inline');
+            dimensionsWrapper.classList.toggle('hidden', displayMode === 'inline');
         }
 
         // Add event listeners to radio buttons
         document.querySelectorAll('input[name="displayMode"]').forEach(radio => {
-            radio.addEventListener('change', toggleContainerSelector);
+            radio.addEventListener('change', toggleDisplayModeDependent);
         });
 
         // Initial toggle on page load
-        toggleContainerSelector();
+        toggleDisplayModeDependent();
 
         function triggerPianoId() {
             const disableSignUp = document.getElementById('disableSignUp').checked;
             const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
-            const screen = document.getElementById('screen').value;
-            const width = document.getElementById('width').value;
-            const height = document.getElementById('height').value;
+            const screen = document.querySelector('input[name="screen"]:checked').value;
             const stage = document.getElementById('stage').value;
             const templateId = document.getElementById('templateId').value;
 
@@ -134,14 +156,15 @@
                 disableSignUp,
                 displayMode,
                 screen,
-                width,
-                height,
                 stage,
                 templateId,
             };
 
             if (displayMode === 'inline') {
                 params.containerSelector = document.getElementById('containerSelector').value;
+            } else {
+                params.width = document.getElementById('width').value;
+                params.height = document.getElementById('height').value;
             }
 
             tp.pianoId.show(params);
