@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano ID Function Tester</title>
+    <script src="https://cdn.tinypass.com/api/tinypass.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { margin-bottom: 10px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        #result { margin-top: 20px; padding: 10px; background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Piano ID Function Tester</h1>
+
+    <form id="initForm">
+        <h2>tp.pianoId.init()</h2>
+        <label>Display Mode: 
+            <select name="displayMode">
+                <option value="modal">Modal</option>
+                <option value="inline">Inline</option>
+                <option value="popup">Popup</option>
+            </select>
+        </label>
+        <label>Container Selector: <input type="text" name="containerSelector"></label>
+        <button type="submit">Init</button>
+    </form>
+
+    <form id="showForm">
+        <h2>tp.pianoId.show()</h2>
+        <label>Screen: 
+            <select name="screen">
+                <option value="login">Login</option>
+                <option value="register">Register</option>
+                <option value="restore">Restore</option>
+                <option value="new_password">New Password</option>
+            </select>
+        </label>
+        <label>Disable Sign Up: <input type="checkbox" name="disableSignUp"></label>
+        <button type="submit">Show</button>
+    </form>
+
+    <form id="otherFunctions">
+        <h2>Other Functions</h2>
+        <button type="button" onclick="showForm()">Show Custom Form</button>
+        <button type="button" onclick="logout()">Logout</button>
+        <button type="button" onclick="getUser()">Get User</button>
+        <button type="button" onclick="isUserValid()">Is User Valid</button>
+        <button type="button" onclick="loadExtendedUser()">Load Extended User</button>
+        <button type="button" onclick="getLang()">Get Language</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        tp = window.tp || [];
+        tp.push(['setUsePianoIdUserProvider', true]);
+
+        document.getElementById('initForm').onsubmit = function(e) {
+            e.preventDefault();
+            const displayMode = this.displayMode.value;
+            const containerSelector = this.containerSelector.value;
+            tp.push(["init", function() {
+                tp.pianoId.init({
+                    displayMode: displayMode,
+                    containerSelector: containerSelector,
+                    loggedIn: function(data) {
+                        document.getElementById('result').innerHTML = 'User logged in: ' + JSON.stringify(data);
+                    },
+                    loggedOut: function() {
+                        document.getElementById('result').innerHTML = 'User logged out';
+                    }
+                });
+            }]);
+        };
+
+        document.getElementById('showForm').onsubmit = function(e) {
+            e.preventDefault();
+            const screen = this.screen.value;
+            const disableSignUp = this.disableSignUp.checked;
+            tp.pianoId.show({
+                screen: screen,
+                disableSignUp: disableSignUp,
+                loggedIn: function(data) {
+                    document.getElementById('result').innerHTML = 'User logged in: ' + JSON.stringify(data);
+                },
+                loggedOut: function() {
+                    document.getElementById('result').innerHTML = 'User logged out';
+                }
+            });
+        };
+
+        function showForm() {
+            tp.pianoId.showForm({formName: 'testForm', templateId: 'templateId', variantId: 'variantId'});
+        }
+
+        function logout() {
+            tp.pianoId.logout(function() {
+                document.getElementById('result').innerHTML = 'User logged out';
+            });
+        }
+
+        function getUser() {
+            const user = tp.pianoId.getUser();
+            document.getElementById('result').innerHTML = 'User: ' + JSON.stringify(user);
+        }
+
+        function isUserValid() {
+            const valid = tp.pianoId.isUserValid();
+            document.getElementById('result').innerHTML = 'User is valid: ' + valid;
+        }
+
+        function loadExtendedUser() {
+            tp.pianoId.loadExtendedUser({
+                extendedUserLoaded: function (data) {
+                    let result = '';
+                    for (var i in data.custom_field_values) {
+                        var fieldName = data.custom_field_values[i].field_name;
+                        var fieldValue = data.custom_field_values[i].value;            
+                        result += "Field " + fieldName + " has value " + fieldValue + "<br>";
+                    }
+                    document.getElementById('result').innerHTML = result;
+                },
+                formName: 'new_form'
+            });
+        }
+
+        function getLang() {
+            const lang = tp.pianoId.getLang();
+            document.getElementById('result').innerHTML = 'Language: ' + lang;
+        }
+    </script>
+</body>
+</html>
